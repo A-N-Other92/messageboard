@@ -17,7 +17,7 @@
 
          if(!isset($_GET['topicmess'])) {
 
-             $_SESSION['messagestart']=0;    // messages start from page one when selected from thread page 
+             $_SESSION['messagestart']=0;    // messages start from page one when selected from thread page
 
              echo '<h3>Topics</h3>';
 
@@ -38,16 +38,13 @@
                {
                   echo '<h4>You must be logged in to post a message</h4>';
                }
-               
+
                echo '<a href="topicreset.php"><h4>Return to list of threads</h4></a>';
 
          }
 
       ?>
 
-
-    </div>
-    <div class="col-md-4">
 
           <?php
              if(!isset($_GET['topicmess'])) {
@@ -62,7 +59,10 @@
              }
           ?>
 
+    </div>
+    <div class="col-md-4">
 
+    <!--  Room for additional content on the right of messages and threads     -->
 
 
     </div>

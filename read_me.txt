@@ -6,12 +6,19 @@ Print topic heading above messages and not show topics when a topic is selected.
 
 when on list of messages, print add a message instead of start a new topic. DONE 
 
-
-
 do new topic page. do topic_check page to either go back to enter topic or go to create a message page for the topic.  DONE
 
+Paginate topic/thread list DONE.
 
-Paginate topic/thread list
+
+
+
+
+
+After message is posted. When user clicks to dislay there message, make messageboard go to the last page where it will be.
+
+Allow punctuation in posted messages.
+
 
 
 

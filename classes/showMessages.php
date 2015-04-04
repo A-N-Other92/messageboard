@@ -60,16 +60,25 @@ class showMessages {
               }
 
 
-              $qry = "SELECT * FROM messages, users WHERE $this->topicmessage = topicid AND users.userid = messages.userid LIMIT $ms, $this->messagedisplay ";
+              $qry = "SELECT * FROM messages, users WHERE $this->topicmessage = topicid AND users.userid = messages.userid ORDER BY date_posted LIMIT $ms, $this->messagedisplay ";
               $results = $pdo->query($qry);
 
               $results->setFetchMode(PDO::FETCH_ASSOC);
 
               while ($row = $results->fetch()){
 
-                 echo  $row['userid'] . ' ' . $row['username'] . ' ' .  $row['message'] . ' ' . $row['date_posted'] .  '<BR>';
+      /*         echo  $row['userid'] . ' ' . $row['username'] . ' ' .  $row['message'] . ' ' . $row['date_posted'] .  '<BR>';
 
                  echo '<BR>';
+     */
+
+                 echo '<table class="table table-bordered">';
+
+                 echo '<tr><td class="col-md-1">' . $row['date_posted'] . '</td><td class="col-md-2">' . $row['username'] . '</td><td class="col-md-5">' .  $row['message'] . '</td></tr>';
+
+                 echo '</table>';
+
+
               }
 
               if ($pages > 1) {
