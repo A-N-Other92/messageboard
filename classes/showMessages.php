@@ -60,7 +60,7 @@ class showMessages {
               }
 
 
-              $qry = "SELECT * FROM messages, users WHERE $this->topicmessage = topicid AND users.userid = messages.userid ORDER BY date_posted LIMIT $ms, $this->messagedisplay ";
+              $qry = "SELECT * FROM messages, users WHERE $this->topicmessage = topicid AND users.userid = messages.userid ORDER BY date_posted, messageid LIMIT $ms, $this->messagedisplay ";
               $results = $pdo->query($qry);
 
               $results->setFetchMode(PDO::FETCH_ASSOC);
@@ -90,7 +90,7 @@ class showMessages {
         	  // Make all the numbered pages:
 	         for ($i = 1; $i <= $pages; $i++) {
 	          	  if ($i != $current_page) {
-		          echo '<a href="messagepage.php?s=' . (($this->messagedisplay * ($i - 1))) . '&t=' . $this->topicmessage . '">' . $i . '</a> ';
+		          echo '<a href="messagepage.php?s=' . (($this->messagedisplay * ($i - 1))) . '&topic=' . $this->topicmessage . '">' . $i . '</a> ';
 		          } else {
 		          echo $i . ' ';
 	                  }

@@ -26,7 +26,39 @@
 
         <?php
 
-           echo '<h3><a href="index.php?topicmess=' . $tpc . '">Message posted! Click here to see it.</a></h3>';
+          try {
+
+                 $messagedisplay = 5;
+
+                 // Create the object:
+                 $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');
+
+                 $qry = "SELECT * FROM messages WHERE '$tpc' = topicid";     /* Find out how many messages are in this thread */
+                 $results = $pdo->query($qry);
+                 $message_count = $results->rowCount();
+
+                 if($message_count > $messagedisplay) {
+                    $pages = ceil($message_count/$messagedisplay);
+                 }
+                 else {
+                 $pages = 1;
+                 }
+
+                 $pagestart = (int)$messagedisplay * ($pages - 1);
+
+                 // Unset the object:
+                 unset($pdo);
+
+              } catch (PDOException $e) { // Report the error!
+                  echo '<p class="error">An error occurred: ' . $e->getMessage() . '</p>';
+                  exit;
+              }   // end of catch-try block
+
+
+
+
+           echo '<h3><a href="messagepage.php?topic=' . $tpc . '&s=' . $pagestart . '">Message posted! Click here to see it.</a></h3>';
+       //    echo '<h3><a href="index.php?topicmess=' . $tpc . '&s=' . $pagestart . '">Message posted! Click here to see it.</a></h3>';
 
         ?>
 
@@ -38,7 +70,7 @@
 
 
     </div>
-    
+
 
   </div>
 

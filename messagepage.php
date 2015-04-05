@@ -4,7 +4,7 @@
 
 
     $_SESSION['messagestart'] = (int)$_GET['s'];
-    $topic=$_GET['t'];
+    $topic=$_GET['topic'];
 
 
     $host  = $_SERVER['HTTP_HOST'];
@@ -13,9 +13,6 @@
 
     header("Location: http://$host$uri/$extra");
     exit;
-
-
-
 
 
 

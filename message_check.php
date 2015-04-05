@@ -13,7 +13,13 @@
               // Create the object:
               $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');
 
-              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES ('$tpc','$uid','$mess',NOW() )";
+              $mess = htmlentities($mess);     // Security
+              $mess = strip_tags($mess);       // Security
+
+          //  $mess = mysql_real_escape_string($mess);    Use this if all else fails
+              $mess = $pdo->quote($mess);
+
+              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES ('$tpc','$uid',$mess,NOW() )";    // No quotes on $mess when put through PDO quote
 
               $results = $pdo->exec($qry);
 

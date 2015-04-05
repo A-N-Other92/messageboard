@@ -11,14 +11,13 @@ do new topic page. do topic_check page to either go back to enter topic or go to
 Paginate topic/thread list DONE.
 
 
+After message is posted. When user clicks to dislay there message, make messageboard go to the last page where it will be. DONE
+
+Allow punctuation in posted messages. DONE
 
 
 
 
-After message is posted. When user clicks to dislay there message, make messageboard go to the last page where it will be.
-
-Allow punctuation in posted messages.
 
 
-
-
+Do security on registration, login and new topic like I have done with submitting messages.
