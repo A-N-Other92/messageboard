@@ -27,6 +27,14 @@ class addUser {
               $email    = $pdo->quote($unsafe_em);
               $password = $pdo->quote($unsafe_pw);
 
+              $username = htmlentities($username);
+              $email = htmlentities($email);
+              $password = htmlentities($password);
+              
+              $username = strip_tags($username);
+              $email = strip_tags($email);
+              $password = strip_tags($password);
+
               $pdo->exec("INSERT INTO users (username,email,password,password_enc) VALUES ($username,$email,$password,SHA1($password))");
 
               // Unset the object:

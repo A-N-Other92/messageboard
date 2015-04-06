@@ -23,6 +23,12 @@ class activateAccount {
 
               $username = $pdo->quote($unsafe_un);
               $email    = $pdo->quote($unsafe_em);
+              
+              $username = htmlentities($username);
+              $email    = htmlentities($email);
+              
+              $username = strip_tags($username);
+              $email    = strip_tags($email);
 
                 if($pdo->exec("UPDATE users SET registered = 'Y', date_joined = NOW() WHERE username = $username AND email = $email AND registered IS NULL")) {
                    echo "<h4>You're account as now been activated. You can login</h4>";

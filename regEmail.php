@@ -33,7 +33,7 @@
        $regmail = new registerEmail($_SESSION['register']['email1'],
                                     "Messageboard details",
                                     "<h3>To register for the message board click the link below</h3>
-                                    <h2><a href=http://www.internetstuff.site90.com/confirmreg.php?username=" . $_SESSION['register']['username'] . "&password=" . $_SESSION['register']['password1'] . "&emailaddress=" . $_SESSION['register']['email1'] . ">Click here to register on the messageboard</a></h2><BR>
+                                    <h2><a href=http://www.internetstuff.site90.com/confirmreg.php?un=" . $_SESSION['register']['username'] . "&em=" . $_SESSION['register']['email1'] . ">Click here to register on the messageboard</a></h2><BR>
                                     Your username is " . $_SESSION['register']['username'] . "<BR><BR> Your password is " . $_SESSION['register']['password1'] . "<BR>");
 
        unset($regmail);

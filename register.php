@@ -52,20 +52,22 @@
              </div>
              <div class="form-group">
                <label for="">Password</label>
-               <input type="password" class="form-control" id="password1" name="password1" placeholder="password" <?php if(isset($_SESSION['register']['password1'])) { echo 'value= "'. $_SESSION['register']['password1'] .'"'; }  ?> >
+<!--             <input type="password" class="form-control" id="password1" name="password1" placeholder="password" <?php if(isset($_SESSION['register']['password1'])) { echo 'value= "'. $_SESSION['register']['password1'] .'"'; }  ?> > -->
+                 <input type="password" class="form-control" id="password1" name="password1" placeholder="password" >
              </div>
-             
+
 
              <div class="form-group">
                <?php if(isset($_SESSION['regErrors']['passmatch'])) {echo $_SESSION['regErrors']['passmatch'] . '<BR>';}
                      if(isset($_SESSION['regErrors']['passlength'])) {echo $_SESSION['regErrors']['passlength'] . '<BR>';}
                ?>
              </div>
-             
+
 
              <div class="form-group">
                <label for="">Confirm password</label>
-               <input type="password" class="form-control" id="password2" name="password2" placeholder="confirm password" <?php if(isset($_SESSION['register']['password2'])) { echo 'value= "'. $_SESSION['register']['password2'] .'"'; }  ?> >
+ <!--            <input type="password" class="form-control" id="password2" name="password2" placeholder="confirm password" <?php if(isset($_SESSION['register']['password2'])) { echo 'value= "'. $_SESSION['register']['password2'] .'"'; }  ?> > -->
+                 <input type="password" class="form-control" id="password2" name="password2" placeholder="confirm password" >
              </div>
              <button type="submit" class="btn btn-default">Register</button>
 
