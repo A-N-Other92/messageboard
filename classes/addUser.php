@@ -21,11 +21,12 @@ class addUser {
           try {
 
               // Create the object:
-              $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');     // put this outside htdocs with an include and a parameter on line above for database
 
-              $username = $pdo->quote($unsafe_un);
-              $email    = $pdo->quote($unsafe_em);
-              $password = $pdo->quote($unsafe_pw);
+              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
+             
+        //     $username = $pdo->quote($unsafe_un);  not
+        //     $email    = $pdo->quote($unsafe_em);  needed
+        //     $password = $pdo->quote($unsafe_pw);  now
 
               $username = htmlentities($username);
               $email = htmlentities($email);
@@ -35,9 +36,9 @@ class addUser {
               $email = strip_tags($email);
               $password = strip_tags($password);
 
-              $pdo->exec("INSERT INTO users (username,email,password,password_enc) VALUES ($username,$email,$password,SHA1($password))");
+              $pdo->exec("INSERT INTO users (username,email,password,password_enc) VALUES ('$username','$email','$password',SHA1('$password'))");
 
-              // Unset the object:
+           // Unset the object:
               unset($pdo);
 
           } catch (PDOException $e) { // Report the error!

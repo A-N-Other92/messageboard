@@ -11,15 +11,16 @@
           try {
 
               // Create the object:
-              $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');
+
+              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
               $mess = htmlentities($mess);     // Security
               $mess = strip_tags($mess);       // Security
 
           //  $mess = mysql_real_escape_string($mess);    Use this if all else fails
-              $mess = $pdo->quote($mess);
+          //  $mess = $pdo->quote($mess);                 not needed this time
 
-              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES ('$tpc','$uid',$mess,NOW() )";    // No quotes on $mess when put through PDO quote
+              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES ('$tpc','$uid','$mess',NOW() )";    // No quotes on $mess when put through PDO quote
 
               $results = $pdo->exec($qry);
 

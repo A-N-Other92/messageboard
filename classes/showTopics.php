@@ -20,7 +20,7 @@ class showTopics {
           try {
 
               // Create the object:
-              $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');     // put this outside htdocs with an include and a parameter on line above for database
+              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
               $qry = "SELECT * FROM topic ORDER BY topicid";     /* Find out how many topics altogether */
               $results = $pdo->query($qry);

@@ -45,7 +45,8 @@ class checkLogin {
       try {
 
           // Create the object:
-          $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');        // put this outside htdocs with an include and a parameter on line above for database
+
+          $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
           $this->username = htmlentities($this->username);      // Security
           $this->password = htmlentities($this->password);
@@ -53,14 +54,14 @@ class checkLogin {
           $this->password = strip_tags($this->password);       // Security
 
           //  $mess = mysql_real_escape_string($mess);    Use this if all else fails
-          $this->username = $pdo->quote($this->username);
-          $this->password = $pdo->quote($this->password);
+          // $this->username = $pdo->quote($this->username);  not needed now
+          // $this->password = $pdo->quote($this->password);  not needed now
 
 
-          $q = "SELECT userid, username FROM users WHERE username = $this->username AND password_enc = SHA1($this->password) AND registered = 'Y' "  ;
+          $q = "SELECT userid, username FROM users WHERE username = '$this->username' AND password_enc = SHA1('$this->password') AND registered = 'Y' "  ;
           $r=$pdo->query($q);
           
-          $this->username = str_replace('\'','',$this->username);  // remove quotes from username that were used for security
+//          $this->username = str_replace('\'','',$this->username);  // remove quotes from username that were used for security.  not needed now
           $this->password = "";
 
           if($r->rowCount() < 1) {
@@ -106,6 +107,8 @@ class checkLogin {
       }
       else {
 
+         if(get_magic_quotes_gpc()) {$this->username = stripslashes($this->username);}  // take slashes out so it prints correctly
+          
          $_SESSION['login']['username']  = $this->username;
          $_SESSION['login']['password']  = $this->password;
 

@@ -20,7 +20,8 @@ class showMessages {
            try {
 
               // Create the object:
-              $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');     // put this outside htdocs with an include and a parameter on line above for database
+   
+              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
               $qry = "SELECT * FROM topic WHERE $this->topicmessage = topicid LIMIT 1";
               $results = $pdo->query($qry);
@@ -46,7 +47,8 @@ class showMessages {
           try {
 
               // Create the object:
-              $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');     // put this outside htdocs with an include and a parameter on line above for database
+
+              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
               $qry = "SELECT * FROM messages WHERE $this->topicmessage = topicid";     /* Find out how many messages are in this thread */
               $results = $pdo->query($qry);

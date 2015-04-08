@@ -30,8 +30,7 @@ class checkRegister {
       if($this->username=='') {
 
          $_SESSION['regErrors']['emptyname'] = "Please enter a username!";
-         echo "Empty username";
-
+         
       }
 
 
@@ -40,22 +39,19 @@ class checkRegister {
       if($this->password1 != $this->password2) {
 
          $_SESSION['regErrors']['passmatch'] = "The passwords don't match!";
-           echo "Passwords don't match";
 
       }
 
       if(strlen($this->password1) < 4) {
 
          $_SESSION['regErrors']['passlength'] = "The password is under 4 characters long!";
-           echo "Password under 4 chars";
 
       }
 
       if(strlen($this->password1) > 20) {
 
          $_SESSION['regErrors']['passlength'] = "The password is over 20 characters long!";
-           echo "Password over 20 chars";
-
+          
       }
 
       /* check email */
@@ -63,14 +59,12 @@ class checkRegister {
       if($this->email1 != $this->email2) {
 
          $_SESSION['regErrors']['emailmatch'] = "The email addresses don't match";
-           echo "The email addresses don't match";
 
       }
 
       if($this->email1 == '') {
 
          $_SESSION['regErrors']['emailblank'] = "Please enter your email address!";
-           echo "Please enter your email address!";
 
       }
 
@@ -84,8 +78,9 @@ class checkRegister {
 
       try {
                                                                                         
-          // Create the object:                                                         
-          $pdo = new PDO('mysql:dbname=messageboard1;host=localhost', 'root', '');        // put this outside htdocs with an include and a parameter on line above for database
+          // Create the object:  
+                                                       
+          $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
           $q = "SELECT username FROM users WHERE username = '$this->username' "  ;
           $r=$pdo->query($q);
@@ -106,9 +101,7 @@ class checkRegister {
 
           }
 
-          // set session variables as needed
 
-          // Unset the object:
           unset($pdo);
 
       } catch (PDOException $e) { // Report the error!
@@ -124,11 +117,19 @@ class checkRegister {
 
    public function redirectPage() {
 
+      if(get_magic_quotes_gpc()) {
+
+         $this->username = stripslashes($this->username); 
+         $this->email1 = stripslashes($this->email1); 
+         $this->email2 = stripslashes($this->email2);      
+      }
+
       $_SESSION['register']['username']   = $this->username;
       $_SESSION['register']['email1']     = $this->email1;
       $_SESSION['register']['email2']     = $this->email2;
       $_SESSION['register']['password1']  = $this->password1;
       $_SESSION['register']['password2']  = $this->password2;
+
 
       $host  = $_SERVER['HTTP_HOST'];
       $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
