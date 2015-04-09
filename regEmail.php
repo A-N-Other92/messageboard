@@ -30,11 +30,20 @@
 
        /* send email to new user so they can register */
 
-       $regmail = new registerEmail($_SESSION['register']['email1'],
-                                    "Messageboard details",
-                                    "<h3>To register for the message board click the link below</h3>
-                                    <h2><a href=http://www.examples.net84.net/messageboard/activate_account.php?un=" . $_SESSION['register']['username'] . "&em=" . $_SESSION['register']['email1'] . ">Click here to register on the messageboard</a></h2><BR>
-                                    Your username is " . $_SESSION['register']['username'] . "<BR><BR> Your password is " . $_SESSION['register']['password1'] . "<BR>");
+//       $regmail = new registerEmail($_SESSION['register']['email1'],
+//                                    "Messageboard details",
+//                                    "<h3>To register for the message board click the link below</h3>
+//                                    <h2><a href=http://www.examples.net84.net/messageboard/activate_account.php?un=" . $_SESSION['register']['username'] . "&em=" . $_SESSION['register']['email1'] . ">Click here to register on the messageboard</a></h2><BR>
+//                                    Your username is " . $_SESSION['register']['username'] . "<BR><BR> Your password is " . $_SESSION['register']['password1'] . "<BR>");
+
+         $regmail = new registerEmail($_SESSION['register']['email1'],
+                                      "Messageboard details",
+                                      "<h3>To register for the message board click the link below</h3>
+                                      <h2><a href=http://www.examples.net84.net/messageboard/activate_account.php?un=" . $_SESSION['register']['username'] . "&em=" . $_SESSION['register']['email1'] . ">Click here to register on the messageboard</a></h2><BR>
+                                      Your username is " . $_SESSION['register']['username'] . "<BR><BR> Your password is " . $_SESSION['register']['password1'] . "<BR>",
+                                      "MIME-Version: 1.0\r\nContent-type: text/html; charset=charset=ISO-8859-1\r\nFrom:www.examples.net84.net\r\n");
+
+
 
        unset($regmail);
 
