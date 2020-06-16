@@ -11,13 +11,5 @@
     $extra = 'index.php';
 
     header("Location: http://$host$uri/$extra");
+    
     exit;
-
-
-
-
-
-
-?>
-
-

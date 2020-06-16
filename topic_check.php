@@ -1,21 +1,27 @@
 <?php
 
     session_start();
+    include('config.php');  // Put above htdocs folder for extra security
 
       if(isset($_POST['topicname']) && TRIM($_POST['topicname']) != "" ) {
 
+          $topicname = (string)TRIM($_POST['topicname']);
+
+          $topicname = htmlentities($topicname);    
+          $topicname = strip_tags($topicname);
+
           $uid = (int)$_SESSION['loggedin']['id'];
-          $topicname = TRIM($_POST['topicname']);
 
           try {
 
               // Create the object:
- 
-              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
 
-              $qry = "INSERT INTO topic (topicname,userid) VALUES ('$topicname','$uid')";
+              $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST , DB_USER , DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database
 
-              $results = $pdo->exec($qry);
+              $qry = "INSERT INTO topic (topicname,userid) VALUES (:tpcn,:uid )";
+              $stmt = $pdo->prepare($qry);
+
+              $results = $stmt->execute(array(':tpcn' => $topicname,':uid' => $uid)); 
 
               $tpc = $pdo->lastInsertId();
 
@@ -32,29 +38,12 @@
 
     }
     else {
-
-      //   $host  = $_SERVER['HTTP_HOST'];
-      //   $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-         $extra = 'index.php';  // change accordingly
-
-     //    header("Location: http://$host$uri/$extra");
-     //    exit;
-
+       $extra = 'index.php';  // change accordingly
     }
 
 
     $host  = $_SERVER['HTTP_HOST'];
     $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-//    $extra = 'index.php';  // change accordingly
 
     header("Location: http://$host$uri/$extra");
     exit;
-
-
-
-
-
-
-?>
-
-

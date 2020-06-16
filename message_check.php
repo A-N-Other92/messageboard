@@ -1,6 +1,7 @@
 <?php
 
     session_start();
+    include('config.php');  // Put above htdocs folder for extra security
 
     if(isset($_POST['messagebox']) && !empty($_POST['messagebox']) && isset($_POST['topic']) ) {
 
@@ -12,18 +13,16 @@
 
               // Create the object:
 
-              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
+              $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST , DB_USER , DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database   
 
               $mess = htmlentities($mess);     // Security
               $mess = strip_tags($mess);       // Security
 
-          //  $mess = mysql_real_escape_string($mess);    Use this if all else fails
-          //  $mess = $pdo->quote($mess);                 not needed this time
+              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES (:tpc,:uid,:mess,NOW() )";
+              $stmt = $pdo->prepare($qry);
 
-              $qry = "INSERT INTO messages (topicid,userid,message,date_posted) VALUES ('$tpc','$uid','$mess',NOW() )";    // No quotes on $mess when put through PDO quote
-
-              $results = $pdo->exec($qry);
-
+              $results = $stmt->execute(array(':tpc' => $tpc,':uid' => $uid,':mess' => $mess));
+              
               unset($pdo);
 
               $extra = 'verifymessage.php?topic=' . $tpc ;
@@ -37,29 +36,12 @@
 
     }
     else {
-
-      //   $host  = $_SERVER['HTTP_HOST'];
-      //   $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
          $extra = 'index.php';  // change accordingly
-
-     //    header("Location: http://$host$uri/$extra");
-     //    exit;
-
     }
 
 
     $host  = $_SERVER['HTTP_HOST'];
     $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-//    $extra = 'index.php';  // change accordingly
 
     header("Location: http://$host$uri/$extra");
     exit;
-
-
-
-
-
-
-?>
-
-
