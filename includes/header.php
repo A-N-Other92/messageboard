@@ -1,12 +1,15 @@
-  <head>
-
-    <?php session_start(); ?>
-
+<?php
+ini_set('display_errors',1);
+error_reporting(E_ALL);  
+session_start();
+include('config.php');  // Put above htdocs folder for extra security
+?>
+<head>
     <title><?php echo $pagename  ?></title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
     
     <style>
     
@@ -20,7 +23,14 @@
 
       .no-padding {padding: 0px;}
 
-      a:hover {text-decoration: none;}
+      .cellpad5 {padding: 5px 5px 5px 5px;}
+
+
+      a:link    {text-decoration: none; color: black;}
+      a:visited {text-decoration: none; color: black;}
+      .underline a:hover   {text-decoration: underline; color: black; font-style: italic;}
+
+
 
 
 
@@ -63,4 +73,3 @@
          ?>
 
       </div>
-
