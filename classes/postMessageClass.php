@@ -1,43 +1,45 @@
 <?php
 
-class postMessageClass {
+class postMessageClass
+{
 
-      protected $topicid;
+  protected $topicid;
 
-      function __construct($tid) {
+  function __construct($tid)
+  {
 
-          $this->topicid  = $tid;
+    $this->topicid  = $tid;
 
-          $this->postMessage($this->topicid);
+    $this->postMessage($this->topicid);
+  }
+
+
+  private function postMessage($a)
+  {
+
+    try {
+
+      // Create the object:
+
+      $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST, DB_USER, DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database
+
+
+      $qry = "SELECT * FROM topic WHERE $a = topicid LIMIT 1";
+      $results = $pdo->query($qry);
+
+      $results->setFetchMode(PDO::FETCH_ASSOC);
+
+      while ($row = $results->fetch()) {
+
+        echo  '<h3>' . $row['topicname'] .  '</h3>';
       }
 
-
-      private function postMessage($a) {
-
-           try {
-
-              // Create the object:
-
-              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
-
-              $qry = "SELECT * FROM topic WHERE $a = topicid LIMIT 1";
-              $results = $pdo->query($qry);
-
-              $results->setFetchMode(PDO::FETCH_ASSOC);
-
-              while ($row = $results->fetch()){
-
-                 echo  '<h3>' . $row['topicname'] .  '</h3>';
-
-              }
-
-              // Unset the object:
-              unset($pdo);
-
-          } catch (PDOException $e) { // Report the error!
-              echo '<p class="error">An error occurred: ' . $e->getMessage() . '</p>';
-              exit;
-          }   // end of catch-try block
+      // Unset the object:
+      unset($pdo);
+    } catch (PDOException $e) { // Report the error!
+      echo '<p class="error">An error occurred: ' . $e->getMessage() . '</p>';
+      exit;
+    }   // end of catch-try block
 
 
     echo '<form method="post" action="message_check.php">
@@ -49,16 +51,8 @@ class postMessageClass {
             </div>
 
           </form>';
-
-
-
-
-
-      }  // end of postMessage function
+  }  // end of postMessage function
 
 
 
 }  //  end of postMessageClass class
-
-?>
-

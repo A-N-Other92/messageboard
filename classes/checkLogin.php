@@ -1,12 +1,15 @@
 <?php
 
-class checkLogin {
+include('config.php');  // Put above htdocs folder for extra security
+class checkLogin
+{
 
    protected  $username;
    protected  $password;
 
 
-   function __construct($un,$pw) {
+   function __construct($un, $pw)
+   {
       $this->username = trim($un);
       $this->password = trim($pw);
 
@@ -14,78 +17,64 @@ class checkLogin {
 
       $this->validateLogin();
       $this->checkDatabase();
-
    }
 
-   private function validateLogin() {
+   private function validateLogin()
+   {
 
       /* check username */
 
-      if($this->username=='') {
+      if ($this->username == '') {
 
          $_SESSION['loginErrors']['emptyname'] = "Please enter a username!";
-
       }
 
 
       /* Check password */
 
-      if($this->password == '') {
+      if ($this->password == '') {
 
          $_SESSION['loginErrors']['emptypass'] = "Please enter a password!";
-
       }
-
-
    } // end of validateReg()
 
 
-   private function checkDatabase() {
+   private function checkDatabase()
+   {
 
       try {
 
-          // Create the object:
+         // Create the object:
 
-          $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
+         $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST, DB_USER, DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database
 
-          $this->username = htmlentities($this->username);      // Security
-          $this->password = htmlentities($this->password);
-          $this->username = strip_tags($this->username);
-          $this->password = strip_tags($this->password);       // Security
-
-          //  $mess = mysql_real_escape_string($mess);    Use this if all else fails
-          // $this->username = $pdo->quote($this->username);  not needed now
-          // $this->password = $pdo->quote($this->password);  not needed now
+         $this->username = htmlentities($this->username);
+         $this->password = htmlentities($this->password);
+         $this->username = strip_tags($this->username);
+         $this->password = strip_tags($this->password);
 
 
-          $q = "SELECT userid, username FROM users WHERE username = '$this->username' AND password_enc = SHA1('$this->password') AND registered = 'Y' "  ;
-          $r=$pdo->query($q);
-          
-//          $this->username = str_replace('\'','',$this->username);  // remove quotes from username that were used for security.  not needed now
-          $this->password = "";
+         $q = "SELECT userid, username FROM users WHERE username = '$this->username' AND password_enc = SHA1('$this->password') AND registered = 'Y' ";
+         $r = $pdo->query($q);
 
-          if($r->rowCount() < 1) {
+         $this->password = "";
 
-             $_SESSION['loginErrors']['nonmatch'] = "There is no active account under that username and password!";
+         if ($r->rowCount() < 1) {
 
-          }
-          else  {
+            $_SESSION['loginErrors']['nonmatch'] = "There is no active account under that username and password!";
+         } else {
 
-             $r->setFetchMode(PDO::FETCH_ASSOC);
-             $x=$r->fetch();
-             $_SESSION['loggedin']['id'] = $x['userid'];
-             $_SESSION['loggedin']['name'] = $x['username'];
+            $r->setFetchMode(PDO::FETCH_ASSOC);
+            $x = $r->fetch();
+            $_SESSION['loggedin']['id'] = $x['userid'];
+            $_SESSION['loggedin']['name'] = $x['username'];
+         }
 
-          }
-
-          // set session variables as needed
-
-          // Unset the object:
-          unset($pdo);
-
+         // Unset the object:
+         unset($pdo);
       } catch (PDOException $e) { // Report the error!
-          echo '<p class="error">An error occurred: ' . $e->getMessage() . '</p>';
-          exit;
+         echo '<p class="error">An error occurred: ' . $e->getMessage() . '</p>';
+         exit;
       }   // end of catch-try block
 
 
@@ -94,21 +83,23 @@ class checkLogin {
 
 
 
-   public function redirectPage() {
+   public function redirectPage()
+   {
 
 
       $host  = $_SERVER['HTTP_HOST'];
       $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
-      if(empty($_SESSION['loginErrors'])) {
+      if (empty($_SESSION['loginErrors'])) {
 
          $extra = 'index.php';  // change accordingly
 
-      }
-      else {
+      } else {
 
-         if(get_magic_quotes_gpc()) {$this->username = stripslashes($this->username);}  // take slashes out so it prints correctly
-          
+         if (get_magic_quotes_gpc()) {
+            $this->username = stripslashes($this->username);
+         }  // take slashes out so it prints correctly
+
          $_SESSION['login']['username']  = $this->username;
          $_SESSION['login']['password']  = $this->password;
 
@@ -118,13 +109,8 @@ class checkLogin {
 
       header("Location: http://$host$uri/$extra");
       exit;
-
-
    }    // end of redirectPage()
 
 
 
 }  //  endof checkLogin class
-
-
-?>

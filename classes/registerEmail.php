@@ -1,5 +1,6 @@
 <?php
 
+
 class registerEmail {
 
       protected $to;
@@ -16,14 +17,14 @@ class registerEmail {
           $this->sendEmail();
       }
 
-
+      
       private function sendEmail() {
 
           mail($this->to,$this->subject,$this->body,$this->mime);
 
       }
+      
 
+      
 
 }  //  end of registerEmail class
-
-?>

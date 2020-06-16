@@ -21,13 +21,9 @@ class addUser {
           try {
 
               // Create the object:
-
-              $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
-             
-        //     $username = $pdo->quote($unsafe_un);  not
-        //     $email    = $pdo->quote($unsafe_em);  needed
-        //     $password = $pdo->quote($unsafe_pw);  now
-
+     
+              $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST , DB_USER , DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database
+        
               $username = htmlentities($unsafe_un);
               $email = htmlentities($unsafe_em);
               $password = htmlentities($unsafe_pw);
@@ -53,36 +49,3 @@ class addUser {
 
 
 }  //  end of addUser class
-
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

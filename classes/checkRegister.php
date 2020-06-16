@@ -1,5 +1,6 @@
 <?php
 
+include('config.php');  // Put above htdocs folder for extra security
 class checkRegister {
 
    protected  $username;
@@ -80,7 +81,8 @@ class checkRegister {
                                                                                         
           // Create the object:  
                                                        
-          $pdo = new PDO('mysql:dbname=a8978141_1;host=mysql3.000webhost.com','a8978141_1','leephp1');   // put this outside htdocs with an include and a parameter on line above for database
+            $pdo = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST , DB_USER , DB_PASS);   // put this outside htdocs with an include and a parameter on line above for database
+
 
           $q = "SELECT username FROM users WHERE username = '$this->username' "  ;
           $r=$pdo->query($q);
@@ -152,5 +154,3 @@ class checkRegister {
    }    // end of redirectPage()
 
 }  //  endof checkRegister class
-
-?>
